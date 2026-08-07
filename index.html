@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>sofikuw</title>
+<meta name="description" content="I'm an explorer and dedicated knowledge seeker — no main quest, just interesting things.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
+
+<style>
+:root { --ink: #16333b; --cyan: #127b85; --line: #c9e0e1; --paper: #f7fcfc; --soft: #e9f5f4; --amber: #e5ad57; --muted: #607c80; }
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body { margin: 0; }
+
+.gp-page { background: var(--paper); color: var(--ink); min-height: 100vh; overflow: hidden; font-family: "DM Sans", sans-serif; position: relative; }
+
+.gp-noise { position: fixed; inset: 0px; opacity: 0.025; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+
+.gp-topbar { height: 76px; max-width: 1180px; margin: auto; padding: 0px 30px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); font: 12px "Space Mono", monospace; position: relative; z-index: 1; }
+
+.gp-wordmark { color: var(--ink); text-decoration: none; font-weight: bold; font-size: 14px; }
+
+.gp-prompt { color: var(--cyan); margin-right: 5px; }
+
+.gp-topbar nav { display: flex; gap: 32px; }
+
+.gp-topbar a { transition: color 0.2s; }
+
+.gp-topbar nav a { color: rgb(89, 119, 123); text-decoration: none; }
+
+.gp-topbar a:hover, .gp-topbar a:focus-visible { color: var(--cyan); }
+
+.gp-github { color: var(--cyan); text-decoration: none; border-bottom: 1px solid var(--cyan); padding-bottom: 3px; }
+
+.gp-hero { max-width: 1180px; margin: auto; padding: 95px 30px 85px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; animation: 0.8s ease 0s 1 normal both running gp-in; }
+
+.gp-kicker { color: var(--cyan); text-transform: uppercase; letter-spacing: 0.14em; font: 11px "Space Mono", monospace; }
+
+.gp-hero h1 { font-size: clamp(56px, 7.2vw, 99px); line-height: 0.93; letter-spacing: -0.065em; margin: 25px 0px 28px; font-weight: 600; }
+
+.gp-hero h1 em, .gp-copy-grid h2 em, .gp-focus-content h2 em, .gp-footer h2 em { font-family: "Instrument Serif", serif; font-weight: 400; color: var(--cyan); }
+
+.gp-cursor { color: var(--amber); font: 0.7em "Space Mono"; margin-left: 5px; }
+
+.gp-intro { color: rgb(80, 112, 117); max-width: 430px; font-size: 17px; line-height: 1.65; margin-bottom: 35px; }
+
+.gp-button { display: inline-block; background: var(--ink); color: rgb(239, 250, 250); padding: 15px 19px; text-decoration: none; font: 12px "Space Mono"; transition: background 0.2s, transform 0.2s; }
+
+.gp-button:hover, .gp-button:focus-visible { background: var(--cyan); transform: translateY(-2px); }
+
+.gp-button span { color: var(--amber); margin-left: 22px; }
+
+.gp-ascii-card { background: rgb(233, 245, 244); border: 1px solid var(--line); padding: 15px 22px 22px; max-width: 370px; width: 100%; justify-self: end; box-shadow: rgba(18, 123, 133, 0.06) 10px 10px 0px; transform: rotate(1.5deg); }
+
+.gp-card-top { border-bottom: 1px solid rgb(199, 222, 222); padding-bottom: 12px; color: rgb(111, 140, 143); display: flex; justify-content: space-between; text-transform: uppercase; letter-spacing: 0.08em; font: 9px "Space Mono"; }
+
+.gp-ascii-card pre { color: var(--cyan); font: 15px / 1.35 "Space Mono", monospace; margin: 25px 0px 20px; }
+
+.gp-ascii-caption { border-top: 1px solid rgb(199, 222, 222); padding-top: 14px; color: rgb(97, 128, 131); font: 11px / 1.6 "Space Mono"; }
+
+.gp-section { max-width: 1180px; margin: auto; padding: 78px 30px 100px; }
+
+.gp-section-label { display: flex; gap: 16px; align-items: center; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.14em; font: 10px "Space Mono"; }
+
+.gp-section-label::after { content: ""; height: 1px; background: var(--line); flex: 1 1 0%; }
+
+.gp-section-label span:first-child { color: var(--amber); }
+
+.gp-copy-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 100px; padding-top: 55px; }
+
+.gp-copy-grid h2, .gp-focus-content h2, .gp-footer h2 { font-size: clamp(42px, 5vw, 65px); line-height: 0.95; letter-spacing: -0.055em; margin: 0px; }
+
+.gp-body-copy { max-width: 500px; color: var(--muted); font-size: 16px; line-height: 1.75; }
+
+.gp-body-copy p { margin: 0px 0px 18px; }
+
+.gp-focus-band { background: rgb(21, 59, 67); color: rgb(228, 245, 243); padding: 78px max(30px, 50% - 560px) 85px; }
+
+.gp-focus-band .gp-section-label { color: rgb(116, 198, 196); }
+
+.gp-focus-band .gp-section-label::after { background: rgb(57, 97, 105); }
+
+.gp-focus-band .gp-section-label span:first-child { color: var(--amber); }
+
+.gp-focus-content { padding: 55px 0px 0px 15%; }
+
+.gp-focus-content h2 em { color: rgb(116, 198, 196); }
+
+.gp-focus-content p { color: rgb(167, 196, 195); line-height: 1.7; max-width: 510px; margin: 26px 0px; }
+
+.gp-inline-link { color: rgb(240, 255, 255); text-decoration: none; border-bottom: 1px solid rgb(116, 198, 196); padding-bottom: 5px; font: 12px "Space Mono"; }
+
+.gp-inline-link span { color: var(--amber); margin-left: 16px; }
+
+.gp-footer { background: rgb(229, 241, 240); padding: 78px max(30px, 50% - 560px) 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px 100px; }
+
+.gp-footer-heading { padding-top: 35px; }
+
+.gp-footer-links { align-self: end; }
+
+.gp-footer-links a { display: flex; justify-content: space-between; border-bottom: 1px solid rgb(191, 217, 218); padding: 15px 0px; color: var(--ink); text-decoration: none; font: 12px "Space Mono"; }
+
+.gp-footer-links a:hover { color: var(--cyan); }
+
+.gp-footer-links b { font-weight: 400; color: var(--cyan); }
+
+.gp-footer-bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; border-top: 1px solid rgb(191, 217, 218); padding-top: 18px; color: rgb(115, 144, 149); text-transform: uppercase; letter-spacing: 0.1em; font: 9px "Space Mono"; }
+
+.gp-footer-bottom a { color: inherit; text-decoration: none; }
+
+.gp-footer-bottom a:hover { color: var(--cyan); }
+
+@keyframes gp-in {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: none; }
+}
+
+@media (max-width: 700px) {
+  .gp-topbar { height: 66px; padding: 0px 18px; }
+  .gp-topbar nav { display: none; }
+  .gp-topbar .gp-github { font-size: 10px; }
+  .gp-hero { display: block; padding: 72px 20px 65px; }
+  .gp-hero h1 { font-size: clamp(55px, 16vw, 80px); }
+  .gp-intro { font-size: 15px; }
+  .gp-ascii-card { margin: 62px 0px 0px; max-width: none; }
+  .gp-section { padding: 65px 20px 78px; }
+  .gp-copy-grid { grid-template-columns: 1fr; gap: 38px; padding-top: 42px; }
+  .gp-copy-grid h2, .gp-focus-content h2, .gp-footer h2 { font-size: 48px; }
+  .gp-body-copy { font-size: 14px; }
+  .gp-focus-band { padding: 65px 20px 72px; }
+  .gp-focus-content { padding: 42px 0px 0px; }
+  .gp-footer { display: block; padding: 65px 20px 20px; }
+  .gp-footer-heading { padding-top: 42px; }
+  .gp-footer-links { margin-top: 48px; }
+  .gp-footer-bottom { margin-top: 58px; display: grid; gap: 12px; }
+}
+</style>
+</head>
+<body>
+<main class="gp-page">
+  <div class="gp-noise"></div>
+
+  <header class="gp-topbar">
+    <a class="gp-wordmark" href="https://github.com/sofikuw" target="_blank" rel="noreferrer"><span class="gp-prompt">~/</span>sofikuw</a>
+    <nav aria-label="Primary navigation">
+      <a href="#about">about</a>
+      <a href="#focus">what's up</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <a class="gp-github" href="https://github.com/sofikuw" target="_blank" rel="noreferrer">github ↗</a>
+  </header>
+
+  <section class="gp-hero">
+    <div class="gp-hero-copy">
+      <p class="gp-kicker">[ github profile / sofikkk ]</p>
+      <h1>Hi there,<br><em>I'm Sofikkk.</em><span class="gp-cursor">_</span></h1>
+      <p class="gp-intro">Just me. An explorer and dedicated knowledge seeker, always chasing the next fascinating idea.</p>
+      <a class="gp-button" href="https://github.com/sofikuw" target="_blank" rel="noreferrer">visit github <span>↗</span></a>
+    </div>
+    <div class="gp-ascii-card" aria-label="ASCII art showing the Sofikuw profile">
+      <div class="gp-card-top"><span>README.md</span><span>public</span></div>
+      <pre>       .-------.
+      .-'         '-.
+     /   .----- .   \
+    |   /       \   |
+    |  |  .---.  |  |
+    |  |  | ? |  |  |
+    |   \ '---' /   |
+     \   '-----'   /
+      '-._______ .-'</pre>
+      <div class="gp-ascii-caption">no main quest.<br>just interesting things.</div>
+    </div>
+  </section>
+
+  <section id="about" class="gp-section gp-simple-section">
+    <div class="gp-section-label"><span>01</span><span>about me</span></div>
+    <div class="gp-copy-grid">
+      <h2>Curious<br><em>by default.</em></h2>
+      <div class="gp-body-copy">
+        <p>I'm an explorer and dedicated knowledge seeker — constantly chasing random, fascinating ideas, even when they have absolutely no practical use.</p>
+        <p>And that's the whole point. I treat the web like an open world: no main quest, just an endless map of interesting things worth knowing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="focus" class="gp-focus-band">
+    <div class="gp-section-label"><span>02</span><span>what i'm up to</span></div>
+    <div class="gp-focus-content">
+      <h2>Always running<br><em>a side quest.</em></h2>
+      <p>Or three. If you stumble across something worth sharing, my inbox is open.</p>
+      <a class="gp-inline-link" href="https://github.com/sofikuw?tab=repositories" target="_blank" rel="noreferrer">browse repositories <span>↗</span></a>
+    </div>
+  </section>
+
+  <footer id="contact" class="gp-footer gp-simple-footer">
+    <div class="gp-section-label"><span>03</span><span>contacts</span></div>
+    <div class="gp-footer-heading">
+      <p class="gp-kicker">[ find me online ]</p>
+      <h2>Let's stay<br><em>connected.</em></h2>
+    </div>
+    <div class="gp-footer-links">
+      <a href="https://github.com/sofikuw" target="_blank" rel="noreferrer"><span>GitHub</span><b>@sofikuw ↗</b></a>
+      <a href="https://www.instagram.com/sofikuw" target="_blank" rel="noreferrer"><span>Instagram</span><b>@sofikuw ↗</b></a>
+      <a href="https://www.facebook.com/sofikuw" target="_blank" rel="noreferrer"><span>Facebook</span><b>@sofikuw ↗</b></a>
+      <a href="mailto:84sofik@gmail.com"><span>Email</span><b>84sofik@gmail.com ↗</b></a>
+    </div>
+    <div class="gp-footer-bottom">
+      <span>© sofikuw</span>
+      <a href="https://github.com/sofikuw/sofikuw" target="_blank" rel="noreferrer">README.md ↗</a>
+      <span>made in public</span>
+    </div>
+  </footer>
+</main>
+</body>
+</html>
