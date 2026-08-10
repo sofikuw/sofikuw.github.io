@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>sofikuw</title>
-<meta name="description" content="I'm an explorer and dedicated knowledge seeker — no main quest, just interesting things.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👤</text></svg>">
+<meta name="description" content="I'm an explorer and dedicated knowledge seeker -- no main quest, just interesting things.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -22,11 +22,15 @@ body { margin: 0; }
 
 .gp-page { background: var(--paper); color: var(--ink); min-height: 100vh; overflow: hidden; font-family: "DM Sans", sans-serif; position: relative; }
 
+.gp-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--cyan); z-index: 50; transition: width 0.12s linear; }
+
 .gp-noise { position: fixed; inset: 0px; opacity: 0.025; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
 
-.gp-topbar { height: 76px; max-width: 1180px; margin: auto; padding: 0px 30px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); font: 12px "Space Mono", monospace; position: relative; z-index: 1; }
+.gp-topbar { height: 76px; max-width: 1180px; margin: auto; padding: 0px 30px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); font: 12px "Space Mono", monospace; position: relative; z-index: 1; animation: gp-drop 0.6s ease both; }
 
-.gp-wordmark { color: var(--ink); text-decoration: none; font-weight: bold; font-size: 14px; }
+.gp-wordmark { color: var(--ink); text-decoration: none; font-weight: bold; font-size: 14px; transition: letter-spacing 0.25s ease; }
+
+.gp-wordmark:hover { letter-spacing: 0.03em; }
 
 .gp-prompt { color: var(--cyan); margin-right: 5px; }
 
@@ -38,9 +42,23 @@ body { margin: 0; }
 
 .gp-topbar a:hover, .gp-topbar a:focus-visible { color: var(--cyan); }
 
-.gp-github { color: var(--cyan); text-decoration: none; border-bottom: 1px solid var(--cyan); padding-bottom: 3px; }
+.gp-github { color: var(--cyan); text-decoration: none; border-bottom: 1px solid var(--cyan); padding-bottom: 3px; transition: border-color 0.25s ease, padding-bottom 0.25s ease; }
 
-.gp-hero { max-width: 1180px; margin: auto; padding: 95px 30px 85px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; animation: 0.8s ease 0s 1 normal both running gp-in; }
+.gp-github:hover { border-color: var(--amber); padding-bottom: 6px; }
+
+.gp-hero { max-width: 1180px; margin: auto; padding: 95px 30px 85px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; }
+
+.gp-hero-copy .gp-kicker, .gp-hero-copy h1, .gp-hero-copy .gp-intro, .gp-hero-copy .gp-button { animation: gp-in 0.7s ease both; }
+
+.gp-hero-copy .gp-kicker { animation-delay: 0.05s; }
+
+.gp-hero-copy h1 { animation-delay: 0.16s; }
+
+.gp-hero-copy .gp-intro { animation-delay: 0.32s; }
+
+.gp-hero-copy .gp-button { animation-delay: 0.46s; }
+
+.gp-ascii-card { animation: gp-in 0.8s ease 0.4s both, gp-float 5s ease-in-out 1.4s infinite; }
 
 .gp-kicker { color: var(--cyan); text-transform: uppercase; letter-spacing: 0.14em; font: 11px "Space Mono", monospace; }
 
@@ -52,7 +70,11 @@ body { margin: 0; }
 
 .gp-intro { color: rgb(80, 112, 117); max-width: 430px; font-size: 17px; line-height: 1.65; margin-bottom: 35px; }
 
-.gp-button { display: inline-block; background: var(--ink); color: rgb(239, 250, 250); padding: 15px 19px; text-decoration: none; font: 12px "Space Mono"; transition: background 0.2s, transform 0.2s; }
+.gp-button { display: inline-block; background: var(--ink); color: rgb(239, 250, 250); padding: 15px 19px; text-decoration: none; font: 12px "Space Mono"; transition: background 0.2s, transform 0.2s; overflow: hidden; }
+
+.gp-button::before { content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(115deg, transparent, rgba(255,255,255,0.16), transparent); transform: skewX(-20deg); transition: left 0.6s ease; }
+
+.gp-button:hover::before { left: 130%; }
 
 .gp-button:hover, .gp-button:focus-visible { background: var(--cyan); transform: translateY(-2px); }
 
@@ -62,7 +84,53 @@ body { margin: 0; }
 
 .gp-card-top { border-bottom: 1px solid rgb(199, 222, 222); padding-bottom: 12px; color: rgb(111, 140, 143); display: flex; justify-content: space-between; text-transform: uppercase; letter-spacing: 0.08em; font: 9px "Space Mono"; }
 
-.gp-ascii-card pre { color: var(--cyan); font: 15px / 1.35 "Space Mono", monospace; margin: 25px 0px 20px; }
+/* Geometrically Symmetrical Concentric ASCII Stage */
+.gp-ascii-stage {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 15px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gp-ascii-stage pre {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  color: var(--cyan);
+  font: 12px / 1.25 "Space Mono", monospace;
+  letter-spacing: 1.5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+  white-space: pre;
+}
+
+/* Layer Animations around exact center */
+.gp-layer-outer {
+  animation: gp-rotate-cw 18s linear infinite;
+}
+
+.gp-layer-middle {
+  animation: gp-rotate-ccw 12s linear infinite;
+}
+
+.gp-layer-inner {
+  animation: gp-rotate-cw 7s linear infinite;
+}
+
+.gp-layer-center {
+  color: var(--amber) !important;
+  font-weight: bold;
+}
+
+.gp-ascii-line { display: block; height: 1.25em; text-align: center; }
 
 .gp-ascii-caption { border-top: 1px solid rgb(199, 222, 222); padding-top: 14px; color: rgb(97, 128, 131); font: 11px / 1.6 "Space Mono"; }
 
@@ -82,7 +150,7 @@ body { margin: 0; }
 
 .gp-body-copy p { margin: 0px 0px 18px; }
 
-.gp-focus-band { background: rgb(21, 59, 67); color: rgb(228, 245, 243); padding: 78px max(30px, 50% - 560px) 85px; }
+.gp-focus-band { background: rgb(21, 59, 67); background: linear-gradient(120deg, #15333f, #17424c, #123441); background-size: 220% 220%; color: rgb(228, 245, 243); padding: 78px max(30px, 50% - 560px) 85px; animation: gp-drift 14s ease-in-out infinite; }
 
 .gp-focus-band .gp-section-label { color: rgb(116, 198, 196); }
 
@@ -96,7 +164,9 @@ body { margin: 0; }
 
 .gp-focus-content p { color: rgb(167, 196, 195); line-height: 1.7; max-width: 510px; margin: 26px 0px; }
 
-.gp-inline-link { color: rgb(240, 255, 255); text-decoration: none; border-bottom: 1px solid rgb(116, 198, 196); padding-bottom: 5px; font: 12px "Space Mono"; }
+.gp-inline-link { color: rgb(240, 255, 255); text-decoration: none; border-bottom: 1px solid rgb(116, 198, 196); padding-bottom: 5px; font: 12px "Space Mono"; transition: border-color 0.25s ease, padding-bottom 0.25s ease; }
+
+.gp-inline-link:hover { border-color: var(--amber); padding-bottom: 8px; }
 
 .gp-inline-link span { color: var(--amber); margin-left: 16px; }
 
@@ -123,6 +193,125 @@ body { margin: 0; }
   100% { opacity: 1; transform: none; }
 }
 
+@keyframes gp-drop {
+  0% { opacity: 0; transform: translateY(-14px); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes gp-float {
+  0%, 100% { transform: rotate(1.5deg) translateY(0px); }
+  50% { transform: rotate(1.5deg) translateY(-8px); }
+}
+
+@keyframes gp-rotate-cw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes gp-rotate-ccw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes gp-blink {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes gp-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes gp-copied-in {
+  0% { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: none; }
+}
+
+.gp-cursor { animation: gp-blink 1.1s step-end infinite; }
+
+.gp-ascii-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+
+.gp-ascii-card:hover { animation-play-state: paused; transform: rotate(0deg) translateY(-3px); box-shadow: rgba(18, 123, 133, 0.12) 14px 14px 0px; }
+
+.gp-button, .gp-inline-link, .gp-footer-links a { position: relative; }
+
+.gp-button span, .gp-inline-link span, .gp-footer-links b { display: inline-block; transition: transform 0.25s ease; }
+
+.gp-button:hover span, .gp-inline-link:hover span { transform: translateX(3px); }
+
+.gp-footer-links a:hover b { transform: translateX(3px); }
+
+.gp-topbar nav a, .gp-github { position: relative; }
+
+.gp-topbar nav a::after { content: ""; position: absolute; left: 0; bottom: -3px; width: 0%; height: 1px; background: var(--cyan); transition: width 0.25s ease; }
+
+.gp-topbar nav a:hover::after, .gp-topbar nav a:focus-visible::after, .gp-topbar nav a.gp-active::after { width: 100%; }
+
+.gp-topbar nav a.gp-active { color: var(--cyan); }
+
+.gp-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+
+.gp-reveal.gp-visible { opacity: 1; transform: none; }
+
+.gp-reveal .gp-section-label::after { transform: scaleX(0); transform-origin: left; transition: transform 0.8s ease 0.2s; }
+
+.gp-reveal.gp-visible .gp-section-label::after { transform: scaleX(1); }
+
+.gp-reveal .gp-section-label span:first-child { display: inline-block; transform: scale(0.6); opacity: 0; transition: transform 0.4s ease 0.1s, opacity 0.4s ease 0.1s; }
+
+.gp-reveal.gp-visible .gp-section-label span:first-child { transform: scale(1); opacity: 1; }
+
+.gp-copy-grid > *, .gp-focus-content > *, .gp-footer-heading > * { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+
+.gp-reveal.gp-visible .gp-copy-grid > *, .gp-reveal.gp-visible .gp-focus-content > *, .gp-reveal.gp-visible .gp-footer-heading > * { opacity: 1; transform: none; }
+
+.gp-copy-grid > *:nth-child(1), .gp-focus-content > *:nth-child(1), .gp-footer-heading > *:nth-child(1) { transition-delay: 0.1s; }
+
+.gp-copy-grid > *:nth-child(2), .gp-focus-content > *:nth-child(2), .gp-footer-heading > *:nth-child(2) { transition-delay: 0.22s; }
+
+.gp-focus-content > *:nth-child(3) { transition-delay: 0.34s; }
+
+.gp-body-copy p { opacity: 0; transform: translateY(10px); transition: opacity 0.55s ease, transform 0.55s ease; }
+
+.gp-reveal.gp-visible .gp-body-copy p { opacity: 1; transform: none; }
+
+.gp-body-copy p:nth-child(1) { transition-delay: 0.32s; }
+
+.gp-body-copy p:nth-child(2) { transition-delay: 0.46s; }
+
+.gp-footer-links a { opacity: 0; transform: translateX(-10px); transition: opacity 0.5s ease, transform 0.5s ease, color 0.2s ease; }
+
+.gp-reveal.gp-visible .gp-footer-links a { opacity: 1; transform: none; }
+
+.gp-footer-links a:nth-child(1) { transition-delay: 0.1s; }
+
+.gp-footer-links a:nth-child(2) { transition-delay: 0.2s; }
+
+.gp-footer-links a:nth-child(3) { transition-delay: 0.3s; }
+
+.gp-footer-links a:nth-child(4) { transition-delay: 0.4s; }
+
+.gp-button:active { transform: translateY(0px) scale(0.97); }
+
+.gp-button { will-change: transform; }
+
+.gp-wordmark:hover .gp-prompt { color: var(--amber); transition: color 0.2s ease; }
+
+.gp-email-link.gp-copied b { color: var(--amber); }
+
+.gp-email-link .gp-copied-tag { display: none; animation: gp-copied-in 0.25s ease; }
+
+.gp-email-link.gp-copied .gp-copied-tag { display: inline; }
+
+.gp-email-link.gp-copied .gp-original-tag { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gp-cursor { animation: none; opacity: 1; }
+  .gp-reveal, .gp-ascii-card, .gp-topbar, .gp-hero-copy .gp-kicker, .gp-hero-copy h1, .gp-hero-copy .gp-intro, .gp-hero-copy .gp-button, .gp-copy-grid > *, .gp-focus-content > *, .gp-footer-heading > *, .gp-footer-links a, .gp-reveal .gp-section-label span:first-child, .gp-body-copy p, .gp-button::before, .gp-progress, .gp-focus-band, .gp-layer-outer, .gp-layer-middle, .gp-layer-inner { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; background-position: 0% 50% !important; }
+  html { scroll-behavior: auto; }
+}
+
 @media (max-width: 700px) {
   .gp-topbar { height: 66px; padding: 0px 18px; }
   .gp-topbar nav { display: none; }
@@ -146,14 +335,15 @@ body { margin: 0; }
 </head>
 <body>
 <main class="gp-page">
+  <div class="gp-progress" aria-hidden="true"></div>
   <div class="gp-noise"></div>
 
   <header class="gp-topbar">
     <a class="gp-wordmark" href="https://github.com/sofikuw" target="_blank" rel="noreferrer"><span class="gp-prompt">~/</span>sofikuw</a>
     <nav aria-label="Primary navigation">
-      <a href="#about">about</a>
-      <a href="#focus">what's up</a>
-      <a href="#contact">contact</a>
+      <a href="#about" data-nav="about">about</a>
+      <a href="#focus" data-nav="focus">what's up</a>
+      <a href="#contact" data-nav="contact">contact</a>
     </nav>
     <a class="gp-github" href="https://github.com/sofikuw" target="_blank" rel="noreferrer">github ↗</a>
   </header>
@@ -161,37 +351,87 @@ body { margin: 0; }
   <section class="gp-hero">
     <div class="gp-hero-copy">
       <p class="gp-kicker">[ github profile / sofikkk ]</p>
-      <h1>Hi there,<br><em>I'm Sofikkk.</em><span class="gp-cursor">_</span></h1>
+      <h1>Hi there,<br><em id="gp-typed">I'm Sofikkk.</em><span class="gp-cursor">_</span></h1>
       <p class="gp-intro">Just me. An explorer and dedicated knowledge seeker, always chasing the next fascinating idea.</p>
       <a class="gp-button" href="https://github.com/sofikuw" target="_blank" rel="noreferrer">visit github <span>↗</span></a>
     </div>
     <div class="gp-ascii-card" aria-label="ASCII art showing the Sofikuw profile">
       <div class="gp-card-top"><span>README.md</span><span>public</span></div>
-      <pre>       .-------.
-      .-'         '-.
-     /   .----- .   \
-    |   /       \   |
-    |  |  .---.  |  |
-    |  |  | ? |  |  |
-    |   \ '---' /   |
-     \   '-----'   /
-      '-._______ .-'</pre>
+      
+      <div class="gp-ascii-stage">
+        <!-- Layer 0: Outer Ring (Clockwise) -->
+        <pre class="gp-layer-outer">
+<span class="gp-ascii-line">      .-----------.      </span>
+<span class="gp-ascii-line">     /             \     </span>
+<span class="gp-ascii-line">    /               \    </span>
+<span class="gp-ascii-line">   /                 \   </span>
+<span class="gp-ascii-line">  |                   |  </span>
+<span class="gp-ascii-line">  |                   |  </span>
+<span class="gp-ascii-line">  |                   |  </span>
+<span class="gp-ascii-line">   \                 /   </span>
+<span class="gp-ascii-line">    \               /    </span>
+<span class="gp-ascii-line">     \             /     </span>
+<span class="gp-ascii-line">      '-----------'      </span></pre>
+
+        <!-- Layer 1: Middle Ring (Counter-Clockwise) -->
+        <pre class="gp-layer-middle">
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">        .-------.        </span>
+<span class="gp-ascii-line">       /         \       </span>
+<span class="gp-ascii-line">      /           \      </span>
+<span class="gp-ascii-line">     |             |     </span>
+<span class="gp-ascii-line">     |             |     </span>
+<span class="gp-ascii-line">     |             |     </span>
+<span class="gp-ascii-line">      \           /      </span>
+<span class="gp-ascii-line">       \         /       </span>
+<span class="gp-ascii-line">        '-------'        </span>
+<span class="gp-ascii-line">                         </span></pre>
+
+        <!-- Layer 2: Inner Ring around ? (Clockwise) -->
+        <pre class="gp-layer-inner">
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">          .---.          </span>
+<span class="gp-ascii-line">         /     \         </span>
+<span class="gp-ascii-line">        |       |        </span>
+<span class="gp-ascii-line">         \     /         </span>
+<span class="gp-ascii-line">          '---'          </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span></pre>
+
+        <!-- Layer 3: Static Center ? -->
+        <pre class="gp-layer-center">
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">            ?            </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span>
+<span class="gp-ascii-line">                         </span></pre>
+      </div>
+
       <div class="gp-ascii-caption">no main quest.<br>just interesting things.</div>
     </div>
   </section>
 
-  <section id="about" class="gp-section gp-simple-section">
+  <section id="about" class="gp-section gp-simple-section gp-reveal">
     <div class="gp-section-label"><span>01</span><span>about me</span></div>
     <div class="gp-copy-grid">
       <h2>Curious<br><em>by default.</em></h2>
       <div class="gp-body-copy">
-        <p>I'm an explorer and dedicated knowledge seeker — constantly chasing random, fascinating ideas, even when they have absolutely no practical use.</p>
+        <p>I'm an explorer and dedicated knowledge seeker -- constantly chasing random, fascinating ideas, even when they have absolutely no practical use.</p>
         <p>And that's the whole point. I treat the web like an open world: no main quest, just an endless map of interesting things worth knowing.</p>
       </div>
     </div>
   </section>
 
-  <section id="focus" class="gp-focus-band">
+  <section id="focus" class="gp-focus-band gp-reveal">
     <div class="gp-section-label"><span>02</span><span>what i'm up to</span></div>
     <div class="gp-focus-content">
       <h2>Always running<br><em>a side quest.</em></h2>
@@ -200,7 +440,7 @@ body { margin: 0; }
     </div>
   </section>
 
-  <footer id="contact" class="gp-footer gp-simple-footer">
+  <footer id="contact" class="gp-footer gp-simple-footer gp-reveal">
     <div class="gp-section-label"><span>03</span><span>contacts</span></div>
     <div class="gp-footer-heading">
       <p class="gp-kicker">[ find me online ]</p>
@@ -210,7 +450,7 @@ body { margin: 0; }
       <a href="https://github.com/sofikuw" target="_blank" rel="noreferrer"><span>GitHub</span><b>@sofikuw ↗</b></a>
       <a href="https://www.instagram.com/sofikuw" target="_blank" rel="noreferrer"><span>Instagram</span><b>@sofikuw ↗</b></a>
       <a href="https://www.facebook.com/sofikuw" target="_blank" rel="noreferrer"><span>Facebook</span><b>@sofikuw ↗</b></a>
-      <a href="mailto:hello@sofikuw.is-not-a.dev"><span>Email</span><b>hello@sofikuw.is-not-a.dev ↗</b></a>
+      <a href="mailto:hello@sofikuw.is-not-a.dev" class="gp-email-link" data-email="hello@sofikuw.is-not-a.dev"><span>Email</span><b><span class="gp-original-tag">hello@sofikuw.is-not-a.dev ↗</span><span class="gp-copied-tag">copied ✓</span></b></a>
     </div>
     <div class="gp-footer-bottom">
       <span>© sofikuw</span>
@@ -219,5 +459,145 @@ body { margin: 0; }
     </div>
   </footer>
 </main>
+
+<script>
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var targets = document.querySelectorAll('.gp-reveal');
+  var animateCounter = function (el) {
+    if (reduceMotion || !el) return;
+    var target = el.textContent.trim();
+    var digits = target.length;
+    var end = parseInt(target, 10);
+    if (isNaN(end)) return;
+    var current = 0;
+    var steps = Math.min(end, 6) || 1;
+    var stepTime = 320 / steps;
+    var tick = function () {
+      current++;
+      if (current >= end) {
+        el.textContent = target;
+        return;
+      }
+      el.textContent = String(current).padStart(digits, '0');
+      setTimeout(tick, stepTime);
+    };
+    el.textContent = String(0).padStart(digits, '0');
+    setTimeout(tick, stepTime);
+  };
+
+  if (!('IntersectionObserver' in window) || !targets.length) {
+    targets.forEach(function (t) { t.classList.add('gp-visible'); });
+  } else {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('gp-visible');
+          var numEl = entry.target.querySelector('.gp-section-label span:first-child');
+          animateCounter(numEl);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    targets.forEach(function (t) { observer.observe(t); });
+  }
+
+  var bar = document.querySelector('.gp-progress');
+  if (bar) {
+    var ticking = false;
+    var updateBar = function () {
+      var h = document.documentElement;
+      var scrollable = h.scrollHeight - h.clientHeight;
+      var pct = scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0;
+      bar.style.width = pct + '%';
+      ticking = false;
+    };
+    updateBar();
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(updateBar);
+        ticking = true;
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateBar);
+  }
+
+  var card = document.querySelector('.gp-ascii-card');
+  if (card && !reduceMotion && window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+    card.addEventListener('mousemove', function (e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = 'perspective(700px) rotate(' + (1.5 - x * 5) + 'deg) rotateX(' + (y * -6) + 'deg) rotateY(' + (x * 8) + 'deg) translateY(-3px)';
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = '';
+    });
+  }
+
+  var typed = document.getElementById('gp-typed');
+  if (typed) {
+    if (reduceMotion) {
+      // leave full text as-is
+    } else {
+      var full = typed.textContent;
+      typed.textContent = '';
+      setTimeout(function () {
+        var i = 0;
+        (function step() {
+          typed.textContent = full.slice(0, i + 1);
+          i++;
+          if (i < full.length) setTimeout(step, 55);
+        })();
+      }, 900);
+    }
+  }
+
+  var navLinks = document.querySelectorAll('.gp-topbar nav a[data-nav]');
+  var navSections = [];
+  navLinks.forEach(function (link) {
+    var sec = document.getElementById(link.getAttribute('data-nav'));
+    if (sec) navSections.push({ link: link, section: sec });
+  });
+  if (navSections.length && 'IntersectionObserver' in window) {
+    var navObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var match = navSections.find(function (n) { return n.section === entry.target; });
+        if (!match) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(function (l) { l.classList.remove('gp-active'); });
+          match.link.classList.add('gp-active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+    navSections.forEach(function (n) { navObserver.observe(n.section); });
+  }
+
+  var magneticBtn = document.querySelector('.gp-hero .gp-button');
+  if (magneticBtn && !reduceMotion && window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+    magneticBtn.addEventListener('mousemove', function (e) {
+      var rect = magneticBtn.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      magneticBtn.style.transform = 'translate(' + (x * 8) + 'px,' + (y * 8 - 2) + 'px)';
+    });
+    magneticBtn.addEventListener('mouseleave', function () {
+      magneticBtn.style.transform = '';
+    });
+  }
+
+  var emailLink = document.querySelector('.gp-email-link');
+  if (emailLink && navigator.clipboard) {
+    emailLink.addEventListener('click', function () {
+      var address = emailLink.getAttribute('data-email');
+      navigator.clipboard.writeText(address).then(function () {
+        emailLink.classList.add('gp-copied');
+        setTimeout(function () { emailLink.classList.remove('gp-copied'); }, 1600);
+      }).catch(function () {});
+    });
+  }
+})();
+</script>
 </body>
 </html>
