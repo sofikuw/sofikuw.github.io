@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.animestream",
+      "sha256_cert_fingerprints": [
+        "61:3C:E3:BE:F7:81:88:A7:EF:5E:3E:17:23:A5:49:33:52:C1:43:47:28:46:1B:00:2B:F0:A2:A5:94:FF:E3:AF"
+      ]
+    }
+  }
+]
